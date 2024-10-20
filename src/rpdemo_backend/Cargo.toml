@@ -11,4 +11,14 @@ crate-type = ["cdylib"]
 [dependencies]
 candid = "0.10"
 ic-cdk = "0.16"
-ic-cdk-timers = "0.10" # Feel free to remove this dependency if you don't need timers
+ic-cdk-timers = "0.10"
+ic-cdk-macros = "0.8"
+ic-stable-structures = "0.6"
+serde = "1.0.197"
+ic-certification = "2.4.0"
+serde_bytes = "0.11.14"
+include_dir = "0.7.3"
+
+vc_util = { git="https://github.com/dfinity/internet-identity", rev="ba982be1f627af53a9f411e5bd68fc3f5005adef" }
+canister_sig_util = { git="https://github.com/dfinity/internet-identity", rev="ba982be1f627af53a9f411e5bd68fc3f5005adef" }
+asset_util = { git="https://github.com/dfinity/internet-identity", rev="ba982be1f627af53a9f411e5bd68fc3f5005adef" }
