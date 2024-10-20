@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "rpdemo_backend": {
+      "candid": "src/rpdemo_backend/rpdemo_backend.did",
+      "package": "rpdemo_backend",
+      "type": "rust"
+    },
+    "rpdemo_frontend": {
+      "dependencies": [
+        "rpdemo_backend"
+      ],
+      "source": [
+        "src/rpdemo_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "rpdemo_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

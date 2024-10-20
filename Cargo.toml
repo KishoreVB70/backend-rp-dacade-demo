@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/rpdemo_backend"
+]
+resolver = "2"
