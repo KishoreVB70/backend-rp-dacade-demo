@@ -3,4 +3,4 @@ type SettingsInput = record {
   ic_root_key_der : blob;
   issuer_canister_id : principal;
 };
-service : (SettingsInput) -> { validate_vc_token : (text) -> (text) query }
+service : (SettingsInput) -> { validate_vc_token : (text) -> (text) }
