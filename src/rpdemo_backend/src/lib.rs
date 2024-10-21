@@ -2,7 +2,7 @@ use ic_cdk::export_candid;
 use std::cell::RefCell;
 use canister_sig_util::extract_raw_root_pk_from_der;
 use ic_cdk::{init, post_upgrade};
-use candid::{CandidType, Principal};
+use candid::{candid_method, CandidType, Principal};
 use serde::Deserialize;
 use std::collections::HashMap;
 use ic_cdk::query;
@@ -72,6 +72,7 @@ fn validate_vc_token(vp_jwt: String) -> String {
 }
 
 // init and upgrade logic
+#[candid_method(init)]
 #[init]
 async fn init(settings_input: SettingsInput) {
     save_settings(settings_input);
@@ -91,8 +92,6 @@ fn save_settings(settings_input: SettingsInput) {
         });
     });
 }
-
-
 
 // Settings logic
 #[derive(CandidType, Deserialize, Debug, Clone)]
