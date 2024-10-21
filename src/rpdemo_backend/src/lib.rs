@@ -17,6 +17,7 @@ thread_local! {
 
 // Main function
 #[query]
+#[candid_method]
 fn validate_vc_token(vp_jwt: String) -> String {
     SETTINGS.with_borrow(|settings_opt| {
         let settings = settings_opt
@@ -37,13 +38,13 @@ fn validate_vc_token(vp_jwt: String) -> String {
 
             // From settings
             issuer_canister_id: settings.issuer_canister_id,
-            issuer_origin: "https://ycons-daaaa-aaaal-qja3q-cai.icp0.io/".to_string(),
+            issuer_origin: "https://dacade.org/".to_string(),
         };
 
         // Define the expected credential specification for the VP. This spec should match the
         // credential type and argument values in the VP.
         let vc_spec = CredentialSpec {
-            credential_type: "GitcoinPassportScore".to_string(),
+            credential_type: "Dacade course completion".to_string(),
             arguments: Some(HashMap::from([(
                 "minScore".to_string(),
                 ArgumentValue::Int(1),
