@@ -51,10 +51,10 @@ fn validate_vc_token(vp_jwt: String) -> String {
         // Define the expected credential specification for the VP. This spec should match the
         // credential type and argument values in the VP.
         let vc_spec = CredentialSpec {
-            credential_type: "Dacade course completion".to_string(),
+            credential_type: "Verified TS101 course completion on Dacade".to_string(),
             arguments: Some(HashMap::from([(
-                "minScore".to_string(),
-                ArgumentValue::Int(1),
+                "course".to_string(),
+                ArgumentValue::String("TS101".to_string()),
             )])),
         };
 
