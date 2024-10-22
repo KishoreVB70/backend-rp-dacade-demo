@@ -9,8 +9,8 @@ deploy-demo-app-ic:
 	@dfx canister create --all
 	@echo "Root key from shell:!!! $(rootkey_did)!!!!"
 	@dfx build rpdemo_backend
-	@dfx generate rpdemo_backend
 	@candid-extractor target/wasm32-unknown-unknown/release/rpdemo_backend.wasm > src/rpdemo_backend/rpdemo_backend.did
+	@dfx generate rpdemo_backend
 	# Use jq to extract and transform the root_key directly from the output of dfx ping.
 	# jq will be used to parse JSON output, format the root_key array, and transform it into the required format.
 	# $(eval export ROOT_KEY=$(shell dfx ping ic \

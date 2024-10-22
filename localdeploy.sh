@@ -1,26 +1,30 @@
 #!/usr/bin/env bash
 
-# At the time of writing dfx outputs incorrect JSON with dfx ping (commas between object
-# entries are missing).
-# In order to read the root key we grab the array from the '"root_key": [...]' bit, the brackets
-# to match what candid expects ({}), replace the commas between array entries to match
-# what candid expects (semicolon) and annotate the numbers with their type (otherwise dfx assumes 'nat'
-# instead of 'nat8').
+II_CANISTER_ID=rdmx6-jaaaa-aaaaa-aaadq-cai
+ISSUER_CANISTER_ID=bu5ax-5iaaa-aaaam-qbgcq-cai
 
-DFX_NETWORK="local"
-# URL used by II-issuer in the id_alias-verifiable credentials (hard-coded in II)
-II_VC_URL="https://identity.ic0.app/"
-# URL used by meta-issuer in the issued verifiable credentials (hard-coded in meta-issuer)
-ISSUER_VC_URL="https://dacade.org/"
-ISSUER_CANISTER_ID="bu5ax-5iaaa-aaaam-qbgcq-cai"
-II_CANISTER_ID="rdmx6-jaaaa-aaaaa-aaadq-cai"
+# Create and build the canister
+dfx canister create rpdemo_backend
+dfx build rpdemo_backend
 
+# Generate Candid interface
+candid-extractor target/wasm32-unknown-unknown/release/rpdemo_backend.wasm > src/rpdemo_backend/rpdemo_backend.did
 
-rootkey_did=$(dfx ping "$DFX_NETWORK" \
+# Generate JavaScript bindings
+dfx generate rpdemo_backend
+
+# Extract the root key using dfx ping and proper command substitution
+rootkey_did=$(dfx ping local \
     | sed -n 's/.*"root_key": \[\(.*\)\].*/{\1}/p' \
     | sed 's/\([0-9][0-9]*\)/\1:nat8/g' \
     | sed 's/,/;/g')
 
-echo "Parsed rootkey: ${rootkey_did:0:20}..." >&2
-
-dfx deploy rpdemo_backend --network "$DFX_NETWORK" --argument '(opt record { issuers = vec{ record{ vc_url = "'"$ISSUER_VC_URL"'"; canister_id = principal "'"$ISSUER_CANISTER_ID"'" }}; ic_root_key_der = vec '"$rootkey_did"'; ii_vc_url = "'"$II_VC_URL"'"; ii_canister_id = principal"'"$II_CANISTER_ID"'"; })'
+echo "Public key: ${rootkey_did}"
+# Deploy the canister
+dfx deploy rpdemo_backend --network local --argument "( \
+    record { \
+        ii_canister_id = principal \"${II_CANISTER_ID}\"; \
+        ic_root_key_der = vec ${rootkey_did}; \
+        issuer_canister_id = principal \"${ISSUER_CANISTER_ID}\"; \
+    } \
+)"
