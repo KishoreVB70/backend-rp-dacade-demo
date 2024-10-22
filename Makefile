@@ -1,15 +1,12 @@
 II_CANISTER_ID = rdmx6-jaaaa-aaaaa-aaadq-cai
 ISSUER_CANISTER_ID = bu5ax-5iaaa-aaaam-qbgcq-cai
-rootkey_did := $(shell dfx ping $(DFX_NETWORK) \
+rootkey_did := $(shell dfx ping ic \
 	| sed -n 's/.*"root_key": \[\(.*\)\].*/{\1}/p' \
 	| sed 's/\([0-9][0-9]*\)/\1:nat8/g' \
 	| sed 's/,/;/g')
 
-
-create-canisters:
+deploy-demo-app-ic:
 	@dfx canister create --all
-
-deploy-demo-app:
 	@echo "Root key from shell:!!! $(rootkey_did)!!!!"
 	@dfx build rpdemo_backend
 	@dfx generate rpdemo_backend
