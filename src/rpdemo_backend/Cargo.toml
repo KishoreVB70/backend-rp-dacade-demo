@@ -18,7 +18,6 @@ serde = "1.0.197"
 ic-certification = "2.4.0"
 serde_bytes = "0.11.14"
 include_dir = "0.7.3"
-
-vc_util = { git="https://github.com/dfinity/internet-identity", rev="ba982be1f627af53a9f411e5bd68fc3f5005adef" }
-canister_sig_util = { git="https://github.com/dfinity/internet-identity", rev="ba982be1f627af53a9f411e5bd68fc3f5005adef" }
-asset_util = { git="https://github.com/dfinity/internet-identity", rev="ba982be1f627af53a9f411e5bd68fc3f5005adef" }
+ic-verifiable-credentials = { git = "https://github.com/dfinity/verifiable-credentials-sdk" }
+ic-canister-sig-creation = "1.1"
+ic-crypto-getrandom-for-wasm = { git="https://github.com/dfinity/ic", rev="faacac31032a9b98020475eb608fd63455603556" }

@@ -1,12 +1,12 @@
 use ic_cdk::export_candid;
 use std::cell::RefCell;
-use canister_sig_util::extract_raw_root_pk_from_der;
+use ic_canister_sig_creation::extract_raw_root_pk_from_der;
 use ic_cdk::{init, post_upgrade};
 use candid::{candid_method, CandidType, Principal};
 use serde::Deserialize;
 use std::collections::HashMap;
 use ic_cdk::query;
-use vc_util::{
+use ic_verifiable_credentials::{
     issuer_api::{ArgumentValue, CredentialSpec},
     validate_ii_presentation_and_claims, VcFlowSigners,
 };
